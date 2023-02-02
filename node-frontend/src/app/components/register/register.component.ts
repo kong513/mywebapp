@@ -20,12 +20,12 @@ export class RegisterComponent implements OnInit {
   ) {
     this.userform = this.formBuilder.group({
       Email: [''],
-      Name: [''],
-      Password: ['', [Validators.required]],
-      Confirm_password: ['', [Validators.required]]  
-    },{
+      Username: [''],
+      Password: ['']/*, [Validators.required]],*/
+      /*Confirm_password: [''], [Validators.required]]*/
+    /*} /** *,{
       Validators: ConfirmedValidator('Password', 'Confirm_password')
-    })
+    */})
   }
   ngOnInit(): void {
     
@@ -34,14 +34,14 @@ export class RegisterComponent implements OnInit {
     this.crudService.AddUser(this.userform.value)
     .subscribe(() => {
       console.log("USER ADD");
-      this.ngZone.run(() => this.router.navigateByUrl('/profile'))
+      this.ngZone.run(() => this.router.navigateByUrl('/login'))
     }, (err) => {
       console.log(err);
     }) 
   }
 }
     
-export function ConfirmedValidator(controlName: string, matchingControlName: string){
+/**export function ConfirmedValidator(controlName: string, matchingControlName: string){
     return (formGroup: FormGroup) => {
         const control = formGroup.controls[controlName];
         const matchingControl = formGroup.controls[matchingControlName];
@@ -54,6 +54,4 @@ export function ConfirmedValidator(controlName: string, matchingControlName: str
             matchingControl.setErrors(null);
         }
     }
-}
-  
-
+}*/

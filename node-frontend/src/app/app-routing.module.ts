@@ -6,12 +6,14 @@ import { RegisterComponent } from './components/register/register.component';
 import { WeboardComponent } from './components/weboard/weboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home'},
+  { path: '', component: HomeComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent},
   { path: 'weboard', component: WeboardComponent},
+  { path: 'admin', component: AdminComponent},
   { path: 'profile/:id', component: ProfileComponent},
 ];
 

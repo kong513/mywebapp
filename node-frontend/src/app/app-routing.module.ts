@@ -15,6 +15,8 @@ const routes: Routes = [
   { path: 'weboard', component: WeboardComponent},
   { path: 'admin', component: AdminComponent},
   { path: 'profile/:id', component: ProfileComponent},
+
+  { path: '**', redirectTo:'/login'},
 ];
 
 @NgModule({

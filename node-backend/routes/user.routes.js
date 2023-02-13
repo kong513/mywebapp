@@ -1,24 +1,15 @@
 const express = require('express');
-const app = express();
-
+const jwt = require('jsonwebtoken');
 const userRoute = express.Router();
-let Userlist = require('../model/Userlist');
+const User = require('../model/userlist');
 
-//add User ID
-userRoute.route('/register-user').post((req, res, next) => {
-    Userlist.create(req.body, (error, data) => {
-        if (error) {
-            return next(error);
-        } 
-        else {
-            res.json(data);
-        }
-    })
-})
 
-//Get all User ID
-userRoute.route('/').get((req, res) => {
-    Userlist.find((error, data) => {
+
+let userlist = require('../model/userlist');
+
+
+userRoute.get('/',(req, res) => {
+    userlist.find((error, data) => {
         if (error) {
             return next(error);
         }
@@ -28,45 +19,42 @@ userRoute.route('/').get((req, res) => {
     })
 })
 
-//Get User ID
-userRoute.route('/show-user/:id').get((req, res) => {
-    Userlist.findById(req.params.id, (error, data) => {
+
+
+//user
+userRoute.post('/register',(req,res) => {
+    let userData = req.body
+    let user = new User(userData)
+
+    user.save((error, registeredUser) => {
         if (error) {
-            return next(error);
+            console.log(error)
         }
         else {
-            res.json(data);
+            let payload = { subject: registeredUser._id}
+            let token = jwt.sign(payload, 'key')
+            res.status(110).send({token})
         }
     })
 })
 
-//update User
-userRoute.route('/update-user/:id').put((req, res, next) => {
-    Userlist.findByIdAndUpdate(req.params.id, {
-        $set: req.body
-    }), (error, data) => {
-        if (error) {
-            return next(error);
-            console.log(error);
-        } 
-        else {
-            res.json(data);
-            console.log('update success');
-        }
-    }
-})
+userRoute.post('/login',(req,res) => {
+    let userData = req.body
 
-//delete user 
-userRoute.route('/delete-user/:id').delete((req, res, next) => {
-    Userlist.findByIdAndRemove(req.params.id, (error, data) => {
+    user.findOne({email: userData.email}, (error, user) => {
         if (error) {
-            return next(error);
-        }
-        else {
-            res.status(200).json({
-                msg: data
-            })
-                
+            console.log(error)
+        } else {
+            if (!user) {
+                res.status(120).send('Invalid email')
+            } else
+            if (user.password !== userData.password){
+                res.status(120).send('Invalid password')
+            } else {
+                let payload = { subject: user._id}
+                let token = jwt.sign(payload, 'key')
+                res.status(110).send({token})
+            }
         }
     })
 })

@@ -1,7 +1,8 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CrudService } from './../../service/crud.service';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+//import { CrudService } from './../../service/crud.service';
+//import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AuthService } from './../../service/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -10,48 +11,28 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class RegisterComponent implements OnInit {
 
-  userform: FormGroup;
+  registerUserData:any = {}
 
   constructor(
-    public formBuilder: FormBuilder,
-    private router: Router,
-    private ngZone: NgZone,
-    private crudService: CrudService
-  ) {
-    this.userform = this.formBuilder.group({
-      Email: [''],
-      Username: [''],
-      Password: ['']/*, [Validators.required]],*/
-      /*Confirm_password: [''], [Validators.required]]*/
-    /*} /** *,{
-      Validators: ConfirmedValidator('Password', 'Confirm_password')
-    */})
-  }
+    private _aunt: AuthService,
+    private _router: Router) {}
+  
   ngOnInit(): void {
     
   }
-  onSubmit(): any{
-    this.crudService.AddUser(this.userform.value)
-    .subscribe(() => {
-      console.log("USER ADD");
-      this.ngZone.run(() => this.router.navigateByUrl('/login'))
-    }, (err) => {
-      console.log(err);
-    }) 
+
+  registerUser() {
+    this._aunt.registerUser(this.registerUserData)
+      .subscribe(
+        res => {
+          console.log(res)
+          localStorage.setItem('token', res.token)
+          this._router.navigate(['/login'])
+        },
+        err => console.log(err)
+      )
   }
 }
+
+
     
-/**export function ConfirmedValidator(controlName: string, matchingControlName: string){
-    return (formGroup: FormGroup) => {
-        const control = formGroup.controls[controlName];
-        const matchingControl = formGroup.controls[matchingControlName];
-        if (matchingControl.errors && !matchingControl.errors) {
-            return;
-        }
-        if (control.value !== matchingControl.value) {
-            matchingControl.setErrors({ confirmedValidator: true });
-        } else {
-            matchingControl.setErrors(null);
-        }
-    }
-}*/

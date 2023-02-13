@@ -20,6 +20,7 @@ mongoose.connect('mongodb+srv://Aimpree04478:QMRpe7dZtEeJOrrI@aimpree.wdm83ta.mo
     console.log('Database error: ' + error)
 })
 
+const itemRoute = require('./routes/item.routes')
 const userRoute = require('./routes/user.routes')
 
 const app = express();
@@ -29,7 +30,7 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(cors());
 
-// Static directory path
+// Static directory path 
 app.use(express.static(path.join(__dirname, 'dist/')))
 // Base route
 app.get('/', (req, res) => {
@@ -37,10 +38,11 @@ app.get('/', (req, res) => {
 })
 
 // API Root
-app.use('/api', userRoute);
+app.use('/api', itemRoute),app.use('/api-user', userRoute);
+
 
 // PORT 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log('Listening on port ' + port)

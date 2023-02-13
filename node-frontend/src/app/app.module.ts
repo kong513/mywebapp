@@ -13,6 +13,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { UserComponent } from './components/user/user.component';
+import { CreateContentBoardComponent } from './components/create-content-board/create-content-board.component';
+import { ContentListComponent } from './components/content-list/content-list.component';
+import { CreateContentBoardIdComponent } from './components/create-content-board-id/create-content-board-id.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { UserComponent } from './components/user/user.component';
     ProfileComponent,
     NavbarComponent,
     AdminComponent,
-    UserComponent
+    UserComponent,
+    CreateContentBoardComponent,
+    ContentListComponent,
+    CreateContentBoardIdComponent
   ],
   imports: [
     BrowserModule,

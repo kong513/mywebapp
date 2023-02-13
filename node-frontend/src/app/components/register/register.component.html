@@ -1,60 +1,40 @@
 <section class="vh-100" style="background-color: #eee;">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center mt-3 align-items-center h-100">
-        <div class="col-lg-12 col-xl-11">
-          <div class="card text-black" style="border-radius: 25px;">
-            <div class="card-body p-md-5">
-              <div class="row justify-content-center">
-                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-  
-                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-  
-                  <form [formGroup]="userform" (ngSubmit)="onSubmit()">
-  
-                    <div class="form-group">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center mt-3 align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-1 mt-1">Sign up</p>
+
+                <form (ngSubmit)="registerUser()">
+
+                  <div class="form">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="email" name="email" [(ngModel)]="registerUserData.email"/>
+                      <label for="">Your Email</label>
+                    </div>
+                  </div>
+
+
+                    <div class="form">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
-                        <input type="text" class="form-control" formControlName="Email" required/>
-                        <label for="Email">Your Email</label>
+                        <input type="password" name="password" [(ngModel)]="registerUserData.password"/>
+                        <label for="">Your Password</label>
                       </div>
                     </div>
-  
-                    <div class="form-group">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                          <input type="text" class="form-control" formControlName="Username" required/>
-                          <label for="Username">Your Name</label>
-                        </div>
-                      </div>
-  
-                      <div class="form-group">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                          <input type="password" class="form-control" formControlName="Password" required/>
-                          <label for="Password">Your Password</label>
-                        </div>
-                      </div>
-  
-                      <!div class="form-group">
-                        <!i class="fas fa-user fa-lg me-3 fa-fw"><!/i>
-                        <!div class="form-outline flex-fill mb-0">
-                          <!input type="text" class="form-control" formControlName="Confirm_password" required/>
-                          <!label for="Confirm_password"><!/label>
-                        <!/div>
-                      <!/div>
-                      
-                      <div class="container">
-                        <span class="small-box"></span>
-                        <span class="big-box"></span>
-                      </div>
+                               
+                  <div class="form">
+                      <div class="row d-flex justify-content-center align-items-center mt-3 " >
+                    <button type="submit" class="btn btn-primary">login</button>
+                  </div>
+                  </div>
+                  
 
-                    
-                    <div class="form-group">
-                        <div class="row d-flex justify-content-center align-items-center mt-3 " >
-                      <button type="submit" class="btn btn-primary">Register</button>
-                    </div>
-                    </div>
-                    
+                </form>
 
-                  </form>
-  
+

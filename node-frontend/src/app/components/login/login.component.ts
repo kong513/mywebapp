@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/service/auth.service';
-import { CrudService } from 'src/app/service/crud.service';
+import { Router } from '@angular/router';
+import { AuthService } from './../../service/auth.service';
+//import { CrudService } from 'src/app/service/crud.service';
 
 
 
@@ -11,23 +12,27 @@ import { CrudService } from 'src/app/service/crud.service';
 })
 export class LoginComponent implements OnInit {
 
-  lEmail:string = "";
-  lPassword:string = "";
+
+  loginUserData:any = {}
+  
 
   constructor(
-    private Auth: AuthService,
-    private crudService: CrudService) {}
+    private _auth: AuthService,
+    private _router: Router) {}
 
   ngOnInit(): void {
     
   }
-  onSubmit(): any {
-    if (this.lEmail == "Aimpree04478@gmail.com" && this.lPassword == "1234"){
-      window.alert("login success")
-    }
-    else{
-      window.alert("login failed")
-    }
+  loginUser() {
+    this._auth.loginUser(this.loginUserData)
+    .subscribe(
+      res => {
+        console.log(res)
+        localStorage.setItem('token', res.token)
+        this._router.navigate(['/weborad'])
+      },
+      err => console.log
+    )
 
   }
 

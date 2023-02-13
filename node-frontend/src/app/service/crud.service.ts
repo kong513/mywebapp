@@ -3,11 +3,11 @@ import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
-export class Userform {
+export class contentForm {
   _id!: String;
-  Email!: String;
-  Username!: String;
-  Password!: String;
+  content_name!: String;
+  description!: String;
+  content!: String;
 }
 
 @Injectable({
@@ -15,27 +15,27 @@ export class Userform {
 })
 export class CrudService {
 
-  REST_API: string = 'http://localhost:8000/api'
+  REST_API: string = 'http://localhost:3000/api'
 
   httpHeaders = new HttpHeaders().set('content-Type', 'application/json');
 
   constructor(private httpClient: HttpClient) { }
   
-  //addid
-  AddUser(data: Userform): Observable<any>{
-    let API_URL = `${this.REST_API}/register-user`;
+  //add
+  Addcontents(data: contentForm): Observable<any>{
+    let API_URL = `${this.REST_API}/add`;
     return this.httpClient.post(API_URL, data)
       .pipe(
         catchError(this.handleError)
       )
   }
-  //show all user
-  GetUsers() {
+  //show all 
+  Getcontents() {
     return this.httpClient.get(`${this.REST_API}`);
   }
-  //show user
-  GetUser(id: any): Observable<any> {
-    let API_URL = `${this.REST_API}/show-user/${id}`;
+  //show 
+  Getcontent(id: any): Observable<any> {
+    let API_URL = `${this.REST_API}/show/${id}`;
     return this.httpClient.get(API_URL, { headers: this.httpHeaders})
       .pipe(map((res: any) => {
         return res || {}
@@ -44,27 +44,22 @@ export class CrudService {
       )
   }
   //update
-  UpdateUser(id:any, data:any): Observable<any> {
-    let API_URL = `${this.REST_API}/update-user/${id}`;
+  Updatecontent(id:any, data:any): Observable<any> {
+    let API_URL = `${this.REST_API}/update/${id}`;
     return this,this.httpClient.put(API_URL, data, { headers: this.httpHeaders })
       .pipe(
         catchError(this.handleError)
       )
   }
   //delete
-  DeleteUser(id:any): Observable<any> {
-    let API_URL = `${this.REST_API}/delete-user/${id}`;
+  Deletecontent(id:any): Observable<any> {
+    let API_URL = `${this.REST_API}/delete/${id}`;
     return this.httpClient.delete(API_URL, {headers: this.httpHeaders})
       .pipe(
         catchError(this.handleError)
       )
         
-      
-
   }
-
-
-
 
   //error
   handleError(error: HttpErrorResponse) {

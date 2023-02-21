@@ -1,20 +1,21 @@
-<div class = "container mt-5 col-md-10">
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">ContentName</th>
-        <th scope="col">Description(short)</th>
-        <th scope="col">View</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let content of content_list; let i = index">
-        <th scope="row">#</th>
-        <td>{{content.content_name}}</td>
-        <td>{{content.description}}</td>
-        <td class="text-left"><button class="btn btn-sm btn-success" routerLink="/weboard/{{content._id}}">enter</button> </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+  <div class = "container mt-5 col-md-14" >
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">ContentName</th>
+          <th scope="col">Description(short)</th>
+          <th scope="col">View</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let content of content_list">
+          <th scope="row">#</th>
+          <td>{{content.content_name}}</td>
+          <td>{{content.description}}</td>
+          <td class="text-left"><button class="btn btn-sm btn-success" routerLink="/weboard/{{content._id}}">enter</button> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

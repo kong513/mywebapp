@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
 const itemRoute = express.Router();
+const itemlist = require('../model/itemlist');
+const auth = require('./auth')
+const verifyToken = express.Router();
 
-
-let itemlist = require('../model/itemlist');
-
-//add User ID
-itemRoute.route('/add').post((req, res, next) => {
+//add 
+itemRoute.post('/add', (req, res, next) => {
     itemlist.create(req.body, (error, data) => {
         if (error) {
             return next(error);
@@ -17,8 +17,8 @@ itemRoute.route('/add').post((req, res, next) => {
     })
 })
 
-//Get all User ID
-itemRoute.route('/').get((req, res) => {
+//Get 
+itemRoute.get('/', (req, res) => {
     itemlist.find((error, data) => {
         if (error) {
             return next(error);
@@ -29,8 +29,8 @@ itemRoute.route('/').get((req, res) => {
     })
 })
 
-//Get User ID
-itemRoute.route('/show/:id').get((req, res) => {
+//Gets
+itemRoute.get('/show/:id', (req, res) => {
     itemlist.findById(req.params.id, (error, data) => {
         if (error) {
             return next(error);
@@ -41,8 +41,8 @@ itemRoute.route('/show/:id').get((req, res) => {
     })
 })
 
-//update User
-itemRoute.route('/update/:id').put((req, res, next) => {
+//update 
+itemRoute.put('/update/:id', (req, res, next) => {
     itemlist.findByIdAndUpdate(req.params.id, {
         $set: req.body
     }), (error, data) => {
@@ -57,8 +57,8 @@ itemRoute.route('/update/:id').put((req, res, next) => {
     }
 })
 
-//delete user 
-itemRoute.route('/delete/:id').delete((req, res, next) => {
+//delete 
+itemRoute.delete('/delete/:id', (req, res, next) => {
     itemlist.findByIdAndRemove(req.params.id, (error, data) => {
         if (error) {
             return next(error);
@@ -71,6 +71,23 @@ itemRoute.route('/delete/:id').delete((req, res, next) => {
         }
     })
 })
+
+itemRoute.post('/addcomment/:id', (req, res, next) => {
+    itemlist.findByIdAndUpdate(req.params.id,
+      {$push: {comments: req.body.comments}},
+      {new: true},
+      (error, data) => {
+        if (error) {
+          return next(error);
+        } 
+        else {
+          res.json(data);
+        }
+      }
+    );
+  });
+  
+  
 
 
 module.exports = itemRoute;

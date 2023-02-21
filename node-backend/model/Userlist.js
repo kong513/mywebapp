@@ -2,15 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let userlist = new Schema({
+    firstname:{
+        type: String},
+    lastname:{
+        type: String},
     email:{
-        type: String
-    },
+        type: String},
     username:{
-        type: String
-    },
+        type: String},
     password:{
-        type: String
-    }
+        type: String},
+    token:{
+        type: String}
 },{
     collection: 'userdb'
 })

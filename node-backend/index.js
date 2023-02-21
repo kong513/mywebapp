@@ -2,8 +2,8 @@ let express = require('express'),
     path = require('path'),
     mongoose = require('mongoose'),
     cors = require('cors'),
-    bodyParser = require('body-parser'),
-    mongoDb = require('./database/db')
+    bodyParser = require('body-parser')
+    //mongoDb = require('./database/db')
 
 
 mongoose.Promise = global.Promise;
@@ -22,6 +22,7 @@ mongoose.connect('mongodb+srv://Aimpree04478:QMRpe7dZtEeJOrrI@aimpree.wdm83ta.mo
 
 const itemRoute = require('./routes/item.routes')
 const userRoute = require('./routes/user.routes')
+const auth = require('./routes/auth')
 
 const app = express();
 app.use(bodyParser.json());
@@ -38,7 +39,7 @@ app.get('/', (req, res) => {
 })
 
 // API Root
-app.use('/api', itemRoute),app.use('/api-user', userRoute);
+app.use('/api', auth, itemRoute),app.use('/api-user', userRoute);
 
 
 // PORT 

@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms'
 import { AuthService } from './../../service/auth.service';
-//import { CrudService } from 'src/app/service/crud.service';
-
-
 
 @Component({
   selector: 'app-login',
@@ -12,28 +11,36 @@ import { AuthService } from './../../service/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-
-  loginUserData:any = {}
-  
+  loginForm:FormGroup;
 
   constructor(
-    private _auth: AuthService,
-    private _router: Router) {}
+    private _http: HttpClient,
+    public _formBuilder: FormBuilder,
+    private _router: Router,
+    private _ngzone: NgZone,
+    private _authService: AuthService)
+    {
+      this.loginForm = this._formBuilder.group({
+        email:[''],
+        password:[''],
+        
+      })
+    }
 
   ngOnInit(): void {
     
+  }             
+  onLoginuser() {
+    this._authService.LoginUser(this.loginForm.value)
+      .subscribe(
+        res => {
+          console.log(res)
+          sessionStorage.setItem('x-access-token', res.token)
+          localStorage.setItem('x-access-token', res.token)
+          this._ngzone.run(() => this._router.navigateByUrl('/weboard'))
+        },
+        err => console.log(err)
+      )
   }
-  loginUser() {
-    this._auth.loginUser(this.loginUserData)
-    .subscribe(
-      res => {
-        console.log(res)
-        localStorage.setItem('token', res.token)
-        this._router.navigate(['/weborad'])
-      },
-      err => console.log
-    )
-
-  }
-
+  
 }

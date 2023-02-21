@@ -8,6 +8,7 @@ export class contentForm {
   content_name!: String;
   description!: String;
   content!: String;
+  comments!: String[];
 }
 
 @Injectable({
@@ -29,6 +30,8 @@ export class CrudService {
         catchError(this.handleError)
       )
   }
+
+  
   //show all 
   Getcontents() {
     return this.httpClient.get(`${this.REST_API}`);
@@ -61,6 +64,15 @@ export class CrudService {
         
   }
 
+  AddComment(id: any, comments: any): Observable<any> {
+    let API_URL = `${this.REST_API}/addcomment/${id}`;
+    return this.httpClient.post(API_URL, { comments }, { headers: this.httpHeaders })
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+  
+
   //error
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
@@ -76,6 +88,10 @@ export class CrudService {
     console.log(errorMessage);
     return throwError(errorMessage);
   }
+
+  
+
+  
 }
 
 

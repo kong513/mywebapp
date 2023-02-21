@@ -22,7 +22,8 @@ export class CreateContentBoardComponent implements OnInit {
       this.contentForm = this._formBuilder.group({
         content_name: [''],
         description: [''],
-        content: ['']
+        content: [''],
+        //comments: ['']
       })
     }
 

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-//import { CrudService } from './../../service/crud.service';
-//import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthService } from './../../service/auth.service';
 
 @Component({
@@ -11,23 +10,34 @@ import { AuthService } from './../../service/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  registerUserData:any = {}
+  registationForm:FormGroup
 
   constructor(
-    private _aunt: AuthService,
-    private _router: Router) {}
+    public _formBuilder: FormBuilder,
+    private _authService: AuthService,
+    private _ngzone: NgZone,
+    private _router: Router) 
+    {
+      this.registationForm = this._formBuilder.group({
+        firstname:[''],
+        lastname:[''],
+        email: [''],
+        username: [''],
+        password: ['']
+      })
+    }
   
   ngOnInit(): void {
     
   }
 
-  registerUser() {
-    this._aunt.registerUser(this.registerUserData)
+  onregisterUser() {
+    this._authService.RegisterUser(this.registationForm.value)
       .subscribe(
         res => {
           console.log(res)
-          localStorage.setItem('token', res.token)
-          this._router.navigate(['/login'])
+          //localStorage.setItem('token', res.token)
+          this._ngzone.run(() => this._router.navigateByUrl('/login'))
         },
         err => console.log(err)
       )

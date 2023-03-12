@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let content of content_list">
-          <th scope="row">#</th>
+          <th scope="row">{{content.user_name}}</th>
           <td>{{content.content_name}}</td>
           <td>{{content.description}}</td>
           <td class="text-left"><button class="btn btn-sm btn-success" routerLink="/weboard/{{content._id}}">enter</button> </td>

@@ -10,17 +10,18 @@ import { AdminComponent } from './components/admin/admin.component';
 import { CreateContentBoardComponent } from './components/create-content-board/create-content-board.component';
 import { ContentListComponent } from './components/content-list/content-list.component';
 import { CreateContentBoardIdComponent } from './components/create-content-board-id/create-content-board-id.component';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent},
+  { path: '', component: HomeComponent ,canActivate:[AuthGuard]},
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'create-content', component: CreateContentBoardComponent},
-  { path: 'list-content', component: ContentListComponent},
+  { path: 'create-content', component: CreateContentBoardComponent,canActivate:[AuthGuard]},
+  { path: 'list-content', component: ContentListComponent,canActivate:[AuthGuard]},
   { path: 'weboard/:id', component: WeboardComponent},
   { path: 'weboard-addon-content', component: CreateContentBoardIdComponent },
-  { path: 'admin', component: AdminComponent},
-  { path: 'profile/:id', component: ProfileComponent},
+  { path: 'admin', component: AdminComponent ,canActivate:[AuthGuard]},
+  { path: 'profile/:id', component: ProfileComponent ,canActivate:[AuthGuard]},
   
 
   { path: '**', redirectTo:'/login'},

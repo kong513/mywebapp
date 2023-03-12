@@ -1,15 +1,37 @@
 const mongoose = require('mongoose');
+const { type } = require('os');
 const Schema = mongoose.Schema;
 
 let itemlist = new Schema({
-  content_name: {
-    type: String},
+  user_name:{
+    type: String
+  },
+  content_name:{
+    type: String
+  },
   description: {
-    type: String},
+    type: String
+  },
   content: {
-    type: String},
+    type: String
+  },
+  comment_name:{
+    type: String
+  },
   comments: {
-    type :Array} 
+    type :Array
+  }, 
+  /*comments: [
+    {
+        user: {
+            type: String
+        },
+        comment: {
+            type: String
+        }
+    }
+],*/
+
 }, {
   collection: 'itemdb'
 });

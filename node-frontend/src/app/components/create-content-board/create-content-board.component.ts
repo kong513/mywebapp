@@ -10,7 +10,7 @@ import { FormGroup, FormBuilder } from '@angular/forms'
 })
 export class CreateContentBoardComponent implements OnInit {
 
-
+  user:any = [];
   contentForm: FormGroup;
 
   constructor(
@@ -20,20 +20,27 @@ export class CreateContentBoardComponent implements OnInit {
     private _crudService: CrudService) 
     {
       this.contentForm = this._formBuilder.group({
+        user_name: [''],
         content_name: [''],
         description: [''],
         content: [''],
-        //comments: ['']
+        
       })
     }
 
   ngOnInit(): void {
-    
+    this.user = localStorage.getItem('username')
+    this.contentForm = this._formBuilder.group({
+      user_name: [this.user],
+      content_name: [''],
+      description: [''],
+      content: [''],
+    })
   }
   onSubmit(): any{
     this._crudService.Addcontents(this.contentForm.value)
     .subscribe(() => {
-      console.log("create new content name");
+      console.log("create new content");
       this._ngZone.run(() => this._router.navigateByUrl('/list-content'))
     }, (err) => {
       console.log(err);

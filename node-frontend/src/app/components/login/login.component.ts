@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
       this.loginForm = this._formBuilder.group({
         email:[''],
         password:[''],
-        
       })
     }
 
@@ -31,15 +30,24 @@ export class LoginComponent implements OnInit {
     
   }             
   onLoginuser() {
-    this._authService.LoginUser(this.loginForm.value)
+    
+  this._authService.LoginUser(this.loginForm.value)
       .subscribe(
         res => {
           console.log(res)
+          localStorage.setItem('id',res._id)
+          localStorage.setItem('username',res.username)
           sessionStorage.setItem('x-access-token', res.token)
-          localStorage.setItem('x-access-token', res.token)
-          this._ngzone.run(() => this._router.navigateByUrl('/weboard'))
+
+          this._router.navigate([''])
+            .then(() => {
+              window.location.reload(); 
+            })
         },
-        err => console.log(err)
+        err => { 
+        console.log(err);
+        window.alert("Login failed. Please check your credentials and try again.");
+        }
       )
   }
   

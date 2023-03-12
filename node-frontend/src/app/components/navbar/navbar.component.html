@@ -15,16 +15,31 @@
       <li class="nav-item">
         <a class="nav-link" href="/create-content">Create Content</a>
       </li>
-      <div style="position:relative; left: 1250px;;">
+
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/profile/{{loginID}}">Profile</a>
+      </li>
+
+      <div style="position:relative; left: 1130px;">
         <li class="nav-item">
           <a class=" btn btn-outline-primary" href="/register">Sign up</a>
         </li>
       </div>
-      <div style="position:relative; left: 1070px;;">
+      <div style="position:relative; left: 970px;">
         <li class="nav-item">
-          <a class="btn btn-outline-success" href="/login">Sign in</a>
+          <a class="btn btn-outline-success" href="/login"> Login </a>
         </li>
       </div>
+
+      <!form [formGroup]="showloginID">
+      <div style="position:relative; left: 1120px;">
+        <li class="nav-item">
+          <a class="btn btn-outline-danger" (click)="onLogOutuser()"  href="/logOUT">{{loginUsername}}</a>
+        </li>
+      </div>
+    <!/form>
+
     </ul>
   </div>
 

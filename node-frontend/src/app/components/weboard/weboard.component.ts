@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from './../../service/crud.service';
-import { FormGroup, FormBuilder } from '@angular/forms'
+import { FormGroup, FormBuilder,Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-weboard',
@@ -10,6 +10,7 @@ import { FormGroup, FormBuilder } from '@angular/forms'
 })
 export class WeboardComponent implements OnInit {
 
+  user: any =[];
   getId: any;
   showcontentForm: FormGroup;
   addcommentForm:FormGroup;
@@ -17,11 +18,12 @@ export class WeboardComponent implements OnInit {
 
   constructor(
     public _FormBuilder: FormBuilder,
-    //private _router: Router,
-    //private _ngZone: NgZone,
+    private _router: Router,
+    private _ngZone: NgZone,
     private _activetedRoute: ActivatedRoute,
-    private _crudService: CrudService
-  ) {
+    private _crudService: CrudService,
+  ) 
+    {
     this.getId = this._activetedRoute.snapshot.paramMap.get('id')
 
     this.showcontentForm = this._FormBuilder.group({
@@ -30,7 +32,8 @@ export class WeboardComponent implements OnInit {
     })
 
     this.showcommentForm = this._FormBuilder.group({
-      comments: ['']
+      //user: [''],
+      comments: [''],
     })
 
     this.addcommentForm = this._FormBuilder.group({
@@ -49,18 +52,51 @@ export class WeboardComponent implements OnInit {
         comments: res['comments']
       })
     })
+
+    
   }
 
   ngOnInit(): void {
+    /*this.user = localStorage.getItem('username')
+    this.showcommentForm = this._FormBuilder.group({
+      comments: {user:[this.user]}
+    })*/
   }
 
   onAddComment(): void {
-  const comment = this.addcommentForm.value.comments;
-  this._crudService.AddComment(this.getId, comment).subscribe(res => {
-    console.log('Comment added successfully:', res);
-    window.location.reload();
-  }, err => {
-    console.error('Failed to add comment:', err);
+    const comment = this.addcommentForm.value.comments;
+    if (comment.trim() === '') {
+      window.alert('cant add empty comment')
+      return;
+    }
+    this._crudService.AddComment(this.getId, comment).subscribe(res => {
+      console.log('Comment added successfully:', res);
+      window.location.reload();
+    }, err => {
+      console.error('Failed to add comment:', err);
+    });
+  }
+
+  ondelete(): void {
+  let thisUser = String(localStorage.getItem('username'))
+  console.log(thisUser)
+
+  this._crudService.Getcontent(this.getId).subscribe(res => {
+    let contentOwner = res['user_name'];
+    this.showcontentForm.patchValue({
+      user_name : contentOwner
+    });
+    console.log(contentOwner);
+
+    if (thisUser == contentOwner) {
+      this._crudService.Deletecontent(this.getId).subscribe(res => {
+        console.log('delete success')
+        this._ngZone.run(() => this._router.navigateByUrl('/list-content'))
+      });
+    } else {
+      console.log('cant delete')
+      window.alert('You not owner of this content')
+    }
   });
 }
   

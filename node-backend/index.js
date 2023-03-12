@@ -39,8 +39,8 @@ app.get('/', (req, res) => {
 })
 
 // API Root
-app.use('/api', auth, itemRoute),app.use('/api-user', userRoute);
-
+app.use('/api', itemRoute),app.use('/api-user', userRoute);
+//app.use(auth)
 
 // PORT 
 const port = process.env.PORT || 3000;

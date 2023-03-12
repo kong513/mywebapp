@@ -1,9 +1,8 @@
 const express = require('express');
-const app = express();
+//const app = express();
 const itemRoute = express.Router();
 const itemlist = require('../model/itemlist');
-const auth = require('./auth')
-const verifyToken = express.Router();
+//const verifyToken = express.Router();
 
 //add 
 itemRoute.post('/add', (req, res, next) => {
@@ -74,7 +73,7 @@ itemRoute.delete('/delete/:id', (req, res, next) => {
 
 itemRoute.post('/addcomment/:id', (req, res, next) => {
     itemlist.findByIdAndUpdate(req.params.id,
-      {$push: {comments: req.body.comments}},
+      {$push: {comments: req.body.comments /*{user: req.body.user, comment: req.body.comment }*/}},
       {new: true},
       (error, data) => {
         if (error) {

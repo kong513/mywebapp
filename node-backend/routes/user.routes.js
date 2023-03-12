@@ -63,23 +63,33 @@ userRoute.post('/login', async (req, res) => {
   }
 })
 
+userRoute.get('/show/:id', (req, res) => {
+  userlist.findById(req.params.id, (error, data) => {
+    if (error) {
+      return next(error);
+    }
+    else {
+      res.json(data);
+    }
+  })
+})
 
+userRoute.put('/update/:id', (req, res, next) => {
+  userlist.findByIdAndUpdate(req.params.id, {
+    $set: req.body
+  }), (error, data) => {
+    if (error) {
+      return next(error);
+      console.log(error);
+    } 
+    else {
+      res.json(data);
+      console.log('update success');
+    }
+  }
+})
 
-// Authentication middleware
-/*function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  if (token == null) return res.sendStatus(401);
-
-  jwt.verify(token, 'secret_key', (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-}
-
-// Protected route
-userRoute.get('/users', authenticateToken, (req, res) => {
+/*userRoute.get('/', (req, res) => {
   userlist.find((error, data) => {
     if (error) {
       return next(error);
@@ -89,6 +99,8 @@ userRoute.get('/users', authenticateToken, (req, res) => {
     }
   })
 })
+
+/*
 
 // Unprotected routes
 userRoute.post('/add', (req, res, next) => {
@@ -124,20 +136,7 @@ userRoute.get('/show/:id', (req, res) => {
   })
 })
 
-userRoute.put('/update/:id', (req, res, next) => {
-  userlist.findByIdAndUpdate(req.params.id, {
-    $set: req.body
-  }), (error, data) => {
-    if (error) {
-      return next(error);
-      console.log(error);
-    } 
-    else {
-      res.json(data);
-      console.log('update success');
-    }
-  }
-})
+
 
 userRoute.delete('/delete/:id', (req, res, next) => {
   userlist.findByIdAndRemove(req.params.id, (error, data) => {

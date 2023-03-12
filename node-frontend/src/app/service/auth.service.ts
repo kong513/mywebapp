@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
@@ -18,29 +18,51 @@ export class userForm {
 })
 export class AuthService {
 
-  REST_API: string = 'http://localhost:3000/api-user'
+  token:any =[]
 
-  httpHeaders = new HttpHeaders({'content-Type': 'application/json'});
+  REST_API: string = 'http://localhost:3000/api-user'
+  httpHeaders = new HttpHeaders().set('content-Type', 'application/json');
 
   constructor(private httpClient: HttpClient) { }
   
   //add
-  RegisterUser(data: userForm): Observable<any>{
+  RegisterUser(user: userForm): Observable<any>{
     let API_URL = `${this.REST_API}/register`;
-    return this.httpClient.post(API_URL, data)
+    return this.httpClient.post(API_URL, user)
       .pipe(
         catchError(this.handleError)
       )
   }
-  LoginUser(data: any): Observable<any> {
+  LoginUser(user: { email:string, password:string} ): Observable<any> {
     let API_URL = `${this.REST_API}/login`;
-    return this.httpClient.post(API_URL, data, {headers: this.httpHeaders})
+    return this.httpClient.post(API_URL, user, {headers: this.httpHeaders})
       .pipe(
+        tap(_res => {
+        }),
         catchError(this.handleError)
       )
-        
   }
 
+  LoginSupperUser(user: { email:string, password:string} ): Observable<any> {
+    let API_URL = `${this.REST_API}/login`;
+    return this.httpClient.post(API_URL, user, {headers: this.httpHeaders})
+      .pipe(
+        tap(_res => {
+        }),
+        catchError(this.handleError)
+      )
+  }
+
+
+  LogOut() {
+    sessionStorage.removeItem('x-access-token');
+    localStorage.removeItem('id');
+    localStorage.removeItem('username');
+  }
+
+  LogIN() {
+    return sessionStorage.getItem('x-access-token')!=null;
+  }
 
   
   //show all 

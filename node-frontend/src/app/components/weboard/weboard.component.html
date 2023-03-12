@@ -1,5 +1,5 @@
 
-  <div class = "container-sm mt-5" style="padding: 13px; background-color: #afaeab">
+  <div class="container-sm mt-5" style="padding: 13px; background-color: #f3ebd2; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
     <form [formGroup]="showcontentForm">
       <h4 class="mt-2">Description :</h4>
       <div class="form-group">
@@ -7,7 +7,7 @@
       </div>
       <h4 class="mt-3">Content :</h4>
       <div class="form-group">
-        <textarea formControlName="content" class="form-control" rows="5" readonly></textarea>
+        <textarea formControlName="content" class="form-control" rows="8" readonly></textarea>
       </div>
     </form>
 
@@ -15,7 +15,7 @@
         <div class="form-group">
       <h4 class="mt-3">Comment :</h4>
       <div *ngFor="let comment of showcommentForm.value.comments">
-        <textarea rows="2"  >{{ comment }}</textarea>
+        <textarea class="mt-3" rows="6" cols="172" >{{ comment }}</textarea>
       </div>
       </div>
       </form>

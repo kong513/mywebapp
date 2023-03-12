@@ -38,6 +38,14 @@ export class CreateContentBoardComponent implements OnInit {
     })
   }
   onSubmit(): any{
+    const content1 = this.contentForm.value.content_name
+    const content2 = this.contentForm.value.description
+    const content3 = this.contentForm.value.content
+
+    if (content1.trim() === '' || content2.trim() === '' || content3.trim() === '') {
+      window.alert('cant add empty content')
+      return;
+    }
     this._crudService.Addcontents(this.contentForm.value)
     .subscribe(() => {
       console.log("create new content");

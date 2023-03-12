@@ -1,6 +1,8 @@
+
 <form [formGroup]="contentForm" (ngSubmit)="onSubmit()">
-    <div class = "container mt-5 col-md-10">
-    <div class="form-group">
+    <div class = "container mt-5 col-md-10" style="padding: 13px; background-color: #f3ebd2; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+    <h3 class="mt-2" style="text-align:center">Create Content </h3>
+    <div class="form-group mt-2">
       <label for="exampleFormControlInput1">Content Name</label>
       <input type="text" class="form-control" formControlName="content_name" placeholder="">
     </div>

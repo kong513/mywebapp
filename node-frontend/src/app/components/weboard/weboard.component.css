@@ -1,0 +1,12 @@
+.container-sm {
+    background-color: #f2e2b3;
+    padding: 20px;
+  }
+  
+  .form-control {
+    border-radius: 0;
+  }
+  
+  textarea {
+    resize: vertical;
+  }

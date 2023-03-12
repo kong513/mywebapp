@@ -1,3 +1,48 @@
-table, th, td {
-    border: 1px solid;
-  }
+.table {
+  border: 0;
+}
+
+.table td,
+.table th {
+  border: 0;
+}
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  border-collapse: collapse;
+  border: none;
+}
+
+.table thead th {
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid #000000;
+  background-color: #f3ebd2;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #000000;
+}
+
+.table td,
+.table th {
+  padding: .75rem;
+  vertical-align: middle;
+  border-top: none;
+}
+
+.table td:last-child,
+.table th:last-child {
+  text-align: center;
+}
+
+.btn-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-view button {
+  margin: 0;
+}

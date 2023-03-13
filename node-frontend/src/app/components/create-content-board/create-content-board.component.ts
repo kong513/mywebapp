@@ -30,6 +30,17 @@ export class CreateContentBoardComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    /*this.userid = localStorage.getItem('id')
+    this.user = localStorage.getItem('username')
+    this.contentForm = this._formBuilder.group({
+      user_name: [this.user],
+      user_id: [this.userid],
+      content_name: [''],
+      description: [''],
+      content: [''],
+    })*/
+  }
+  onCheckbox(): any{
     this.userid = localStorage.getItem('id')
     this.user = localStorage.getItem('username')
     this.contentForm = this._formBuilder.group({
@@ -40,6 +51,18 @@ export class CreateContentBoardComponent implements OnInit {
       content: [''],
     })
   }
+  onCheckboxUnknowps(): any{
+    this.userid = localStorage.getItem('id')
+    this.user = localStorage.getItem('username')
+    this.contentForm = this._formBuilder.group({
+      user_name: ['Anonymous'],
+      user_id: [this.userid],
+      content_name: [''],
+      description: [''],
+      content: [''],
+    })
+  }
+
   onSubmit(): any{
     const content1 = this.contentForm.value.content_name
     const content2 = this.contentForm.value.description
@@ -57,7 +80,7 @@ export class CreateContentBoardComponent implements OnInit {
       console.log(err);
     }) 
   }
-  onUnknownSubmit(): any{
+  /*onUnknownSubmit(): any{
     this.contentForm = this._formBuilder.group({
       user_name: ['Unknown'],
       content_name: ['123'],
@@ -71,5 +94,5 @@ export class CreateContentBoardComponent implements OnInit {
     }, (err) => {
       console.log(err);
     }) 
-  }
+  }*/
 }

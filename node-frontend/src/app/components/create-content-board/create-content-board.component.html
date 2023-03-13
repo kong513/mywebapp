@@ -1,36 +1,45 @@
-
-<form [formGroup]="contentForm" >
-    <div class = "container mt-5 col-md-10" style="padding: 13px; background-color: #f3ebd2; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
-    <h3 class="mt-2" style="text-align:center">Create Content </h3>
+<form [formGroup]="contentForm">
+  <div class="container mt-5 col-md-10" style="padding: 13px; background-color: #f3ebd2; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+    
+    <h3 class="mt-2 text-center" style="font-family: 'Helvetica Neue', sans-serif; font-weight: bold; color: #006400;">Create Content</h3>
     <div class="form-group mt-2">
-      <label for="exampleFormControlInput1">Content Name</label>
+      <h5 for="exampleFormControlInput1" style="font-family: 'Helvetica Neue', sans-serif; font-weight: bold; color: #006400;">Content Name:</h5>
       <input type="text" class="form-control" formControlName="content_name" placeholder="">
     </div>
 
     <div class="form-group mt-3">
-        <label for="exampleFormControlInput1">description(short)</label>
-        <input type="text" class="form-control" formControlName="description" placeholder="">
-      </div>
+      <h5 for="exampleFormControlInput1" style="font-family: 'Helvetica Neue', sans-serif; font-weight: bold; color: #006400;">Description:</h5>
+      <input type="text" class="form-control" formControlName="description" placeholder="">
+    </div>
 
     <div class="form-group mt-3">
-      <label for="exampleFormControlTextarea1">content</label>
+      <h5 for="exampleFormControlTextarea1" style="font-family: 'Helvetica Neue', sans-serif; font-weight: bold; color: #006400;">Content:</h5>
       <textarea type="text" class="form-control "  formControlName="content" cols="50" rows="8"></textarea>
     </div>
 
 
-    <div class="form-group mt-2">
-        <label for="exampleFormControlFile1"></label>
-        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+
+    <div class="form-check mt-2">
+      <input class="form-check-input" type="radio" name="flexRadioDisabled" (click)="onCheckbox()" >
+      <label class="form-check-label" for="flexRadioDisabled">
+        Post as Default-User
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="flexRadioDisabled" (click)="onCheckboxUnknowps()" checked >
+      <label class="form-check-label" for="flexRadioCheckedDisabled">
+        Post as Anonymous-User
+      </label>
     </div>
       
 
-    <div class="form-group mt-2">
-        <button type="submit" class="btn btn-primary" (click)="onSubmit() ">Create</button>
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-success btn-sm" (click)="onSubmit() ">Create Post</button>
     </div>
 
-    <div class="form-group mt-2">
-      <button class="btn btn-primary mt-2" (click)="onUnknownSubmit()">Post</button>
-    </div>
+    <!div class="form-group mt-2">
+      <!button class="btn btn-primary mt-2" (click)="onUnknownSubmit()"><!/button>
+    <!/div>
 
     </div>
 </form>

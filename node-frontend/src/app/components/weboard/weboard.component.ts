@@ -10,6 +10,7 @@ import { FormGroup, FormBuilder,Validators } from '@angular/forms'
 })
 export class WeboardComponent implements OnInit {
 
+  head:any =[];
   user: any =[];
   getId: any;
   showcontentForm: FormGroup;
@@ -61,6 +62,7 @@ export class WeboardComponent implements OnInit {
     this.showcommentForm = this._FormBuilder.group({
       comments: {user:[this.user]}
     })*/
+    
   }
 
   onAddComment(): void {

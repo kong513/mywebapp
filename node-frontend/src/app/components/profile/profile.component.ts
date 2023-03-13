@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder } from '@angular/forms'
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit{
- getEmail: any;
+ getid: any;
  showprofileForm: FormGroup;
 
   constructor(
@@ -18,15 +18,15 @@ export class ProfileComponent implements OnInit{
     private _auth: AuthService
   )
   {
-    this.getEmail = this._activetedRoute.snapshot.paramMap.get('id')
+    this.getid = this._activetedRoute.snapshot.paramMap.get('id')
 
-    this._auth.Getuser(this.getEmail).subscribe(res => {
+    this._auth.Getuser(this.getid).subscribe(res => {
       this.showprofileForm.setValue({
         firstname: res['firstname'],
         lastname: res['lastname'],
         email: res['email'],
         username: res['username'],
-        //password: res['password'],
+        password: [''],
       })
     })
 
@@ -35,10 +35,20 @@ export class ProfileComponent implements OnInit{
       lastname: [''],
       email: [''],
       username: [''],
-      //password: [''],
+      password: [''],
+      //confirm_password: [''],
     })
   }
   ngOnInit(): void {
     
   }
+  onChangeprofile(): any {
+    this._auth.Updateuser(this.getid , this.showprofileForm.value).subscribe(() => {
+      console.log('change seccess')
+      window.alert('change seccess')
+    }, (err) => {
+      console.log(err)
+    })
+  }
+  
 }

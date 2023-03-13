@@ -12,6 +12,7 @@ export class CreateContentBoardComponent implements OnInit {
 
   user:any = [];
   contentForm: FormGroup;
+  userid:any = [];
 
   constructor(
     public _formBuilder: FormBuilder,
@@ -29,9 +30,11 @@ export class CreateContentBoardComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.userid = localStorage.getItem('id')
     this.user = localStorage.getItem('username')
     this.contentForm = this._formBuilder.group({
       user_name: [this.user],
+      user_id: [this.userid],
       content_name: [''],
       description: [''],
       content: [''],
@@ -54,5 +57,19 @@ export class CreateContentBoardComponent implements OnInit {
       console.log(err);
     }) 
   }
- 
+  onUnknownSubmit(): any{
+    this.contentForm = this._formBuilder.group({
+      user_name: ['Unknown'],
+      content_name: ['123'],
+      description: ['123'],
+      content: ['123'],
+    })
+    this._crudService.Addcontents(this.contentForm.value)
+    .subscribe(() => {
+      console.log("create new content");
+      this._ngZone.run(() => this._router.navigateByUrl('/list-content'))
+    }, (err) => {
+      console.log(err);
+    }) 
+  }
 }

@@ -78,13 +78,13 @@ export class WeboardComponent implements OnInit {
   }
 
   ondelete(): void {
-  let thisUser = String(localStorage.getItem('username'))
+  let thisUser = String(localStorage.getItem('id'))
   console.log(thisUser)
 
   this._crudService.Getcontent(this.getId).subscribe(res => {
-    let contentOwner = res['user_name'];
+    let contentOwner = res['user_id'];
     this.showcontentForm.patchValue({
-      user_name : contentOwner
+      user_id : contentOwner
     });
     console.log(contentOwner);
 

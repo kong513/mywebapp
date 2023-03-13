@@ -6,6 +6,9 @@ let itemlist = new Schema({
   user_name:{
     type: String
   },
+  user_id:{
+    type: String
+  },
   content_name:{
     type: String
   },
